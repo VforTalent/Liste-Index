@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8" />
     <title>RECOBOT by Vfor</title>
     <style>
       #iframes-container {
@@ -46,8 +47,6 @@
       const iframesContainer = document.getElementById("iframes-container");
       const list = document.getElementById("list");
       const switchButton = document.querySelector(".switch-button");
-      const loadLimit = 4;
-      let loadOffset = 0;
 
       const referenceList = [
         "https://studiotaktil.com/",
@@ -105,30 +104,6 @@
       };
 
       switchButton.addEventListener("click", toggleView);
-      
-         // Fonction pour charger des iframes supplémentaires
-    function loadMoreIframes() {
-      const nextBatch = referenceList.slice(loadOffset, loadOffset + loadLimit);
-      nextBatch.forEach(siteUrl => createIframe(siteUrl));
-      loadOffset += loadLimit;
-      if (loadOffset >= referenceList.length) {
-        loadMoreButton.style.display = "none";
-      }
-    }
-
-    // Charger les premières iframes
-    loadMoreIframes();
-
-    // Fonction pour basculer entre la liste et la vue en grille
-    function toggleView() {
-      if (iframesContainer.style.display === "none") {
-        iframesContainer.style.display = "flex";
-        listContainer.style.display = "none";
-      } else {
-        iframesContainer.style.display = "none";
-        listContainer.style.display = "block";
-      }
-    }
     </script>
   </body>
 </html>
