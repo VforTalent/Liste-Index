@@ -11,10 +11,8 @@
 
       // Liste de référence stockée localement
       const referenceList = [
-        "http://17mars.com",
         "https://studiotaktil.com/",
         "https://www.unit.tv/",
-        "https://www.modlo.tv/",
         "https://www.tactyc.studio/",
         "https://www.daydreamervfx.com/",
         "https://www.rawandrendered.com/",
@@ -33,7 +31,7 @@
         if (trimmedSiteUrl.length > 0) {
           const iframe = document.createElement("iframe");
           iframe.src = trimmedSiteUrl;
-          iframe.width = "100%";
+          iframe.width = "80%";
           iframe.height = "600px";
           iframesContainer.appendChild(iframe);
         }
