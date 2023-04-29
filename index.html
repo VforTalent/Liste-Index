@@ -4,7 +4,7 @@
     <title>Mon projet avec serveur local</title>
   </head>
   <body>
-    <h1>Index de mon projet avec serveur local</h1>
+    <h1>Vfor Talent</h1>
     <div id="iframes-container"></div>
     <script>
       const iframesContainer = document.getElementById("iframes-container");
@@ -38,4 +38,28 @@
       });
     </script>
   </body>
+  <head>
+    <style>
+      #iframes-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      iframe {
+        width: calc(33.33% - 50px);
+        height: 600px;
+        border: none;
+        margin: 25px;
+      }
+
+      .iframe-title {
+        margin: 0;
+        padding: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: left;
+      }
+    </style>
+  </head>
 </html>
