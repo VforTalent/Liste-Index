@@ -45,7 +45,7 @@
       }
 
       iframe {
-        width: calc(33.33% - 50px);
+        width: calc(33.33% - 10px);
         height: 600px;
         border: none;
         margin: 25px;
@@ -60,4 +60,32 @@
       }
     </style>
   </head>
+    <body>
+    <h1>Index de mon projet GitHub</h1>
+    <div id="iframes-container"></div>
+    <script>
+      const iframesContainer = document.getElementById("iframes-container");
+
+      // Récupérer le contenu du fichier de référence sur GitHub à l'aide de l'API
+      fetch('https://raw.githubusercontent.com/Vfortalent/Liste-Index/main/liste-de-reference.txt')
+        .then(response => response.text())
+        .then(referenceList => {
+          // Parcourir la liste de référence et créer dynamiquement une iframe pour chaque site web
+          referenceList.split('\n').forEach(siteUrl => {
+            const trimmedSiteUrl = siteUrl.trim();
+            if (trimmedSiteUrl.length > 0) {
+              const iframeWrapper = document.createElement("div");
+              const iframe = document.createElement("iframe");
+              const iframeTitle = document.createElement("h2");
+              iframe.src = trimmedSiteUrl;
+              iframeTitle.innerHTML = trimmedSiteUrl;
+              iframeWrapper.appendChild(iframeTitle);
+              iframeWrapper.appendChild(iframe);
+              iframesContainer.appendChild(iframeWrapper);
+            }
+          });
+        })
+        .catch(error => console.error(error));
+    </script>
+  </body>
 </html>
