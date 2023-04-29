@@ -22,14 +22,14 @@
     <div id="iframes-container"></div>
     <script>
       const iframesContainer = document.getElementById("iframes-container");
-      
+
       // Récupérer le contenu du fichier de référence sur GitHub à l'aide de l'API
-      fetch('https://api.github.com/repos/VforTalent/Liste-Index/contents/liste-de-reference.txt')
+      fetch('https://api.github.com/repos/Vfortalent/Liste-Index/contents/liste-de-reference.txt')
         .then(response => response.json())
         .then(data => {
           // Convertir les données du fichier en chaîne de caractères
           const referenceList = atob(data.content);
-          
+
           // Parcourir la liste de référence et créer dynamiquement une iframe pour chaque site web
           referenceList.split('\n').forEach(siteUrl => {
             const trimmedSiteUrl = siteUrl.trim();
