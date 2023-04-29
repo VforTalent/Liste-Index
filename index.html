@@ -1,121 +1,109 @@
 <!DOCTYPE html>
 <html>
-      <head>
-    <title>Mon projet GitHub</title>
+  <head>
+    <meta charset="UTF-8" />
+    <title>RECOBOT by Vfor</title>
     <style>
       #iframes-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
       }
-
-      iframe {
-        width: calc(33.33% - 50px);
-        height: 600px;
-        border: none;
-        margin: 25px;
+      .iframe-wrapper {
+        position: relative;
+        height: 0;
+        padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        overflow: hidden;
       }
-
-      .iframe-title {
-        margin: 0;
-        padding: 10px;
-        font-size: 18px;
-        font-weight: bold;
-        text-align: left;
+      .iframe-wrapper > iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
       }
-
       .list {
         display: none;
-        list-style: none;
-        padding: 0;
         margin: 0;
+        padding: 0;
+        list-style: none;
       }
-
       .list-item {
         margin-bottom: 20px;
-        padding: 10px;
-        border: 1px solid #ccc;
       }
-
-      .list-item a {
-        font-size: 18px;
-        font-weight: bold;
+      .switch-button {
+        position: fixed;
+        top: 10px;
+        right: 10px;
       }
     </style>
   </head>
-<body>
-  <h1>RECOBOT by Vfor</h1>
-  <div id="iframes-container"></div>
-  <script>
-    const iframesContainer = document.getElementById("iframes-container");
-    
-    // Liste de référence stockée localement
-    const referenceList = [
-      "https://studiotaktil.com/",
-      "https://www.unit.tv/",
-      "https://www.tactyc.studio/",
-      "https://www.daydreamervfx.com/",
-      "https://www.rawandrendered.com/",
-      "https://www.altcinc.com/",
-      "https://onesal.com/",
-      "https://www.firm-studio.fr/",
-      "https://spotstudio.es/",
-      "https://www.bluenode.paris/",
-      "https://www.studioriver.fr/",
-      "https://newformat.io/"
-    ];
+  <body>
+    <h1>RECOBOT by Vfor</h1>
+    <div id="iframes-container"></div>
+    <ul id="list"></ul>
+    <button class="switch-button">Switch</button>
+    <script>
+      const iframesContainer = document.getElementById("iframes-container");
+      const list = document.getElementById("list");
+      const switchButton = document.querySelector(".switch-button");
 
-    // Trier la liste de référence par ordre alphabétique
-    referenceList.sort((a, b) => a.replace(/^www\./, '') > b.replace(/^www\./, '') ? 1 : -1);
+      const referenceList = [
+        "https://studiotaktil.com/",
+        "https://www.unit.tv/",
+        "https://www.tactyc.studio/",
+        "https://www.daydreamervfx.com/",
+        "https://www.rawandrendered.com/",
+        "https://www.altcinc.com/",
+        "https://onesal.com/",
+        "https://www.firm-studio.fr/",
+        "https://spotstudio.es/",
+        "https://www.bluenode.paris/",
+        "https://www.studioriver.fr/",
+        "https://newformat.io/",
+      ];
 
-    // Parcourir le tableau de référence et créer dynamiquement une iframe pour chaque site web
-    referenceList.forEach(siteUrl => {
-      const trimmedSiteUrl = siteUrl.trim();
-      if (trimmedSiteUrl.length > 0) {
+      referenceList.sort((a, b) => {
+        const aWithoutWWW = a.replace("www.", "");
+        const bWithoutWWW = b.replace("www.", "");
+        return aWithoutWWW.localeCompare(bWithoutWWW);
+      });
+
+      const createIframeWrapper = (url) => {
+        const trimmedSiteUrl = url.trim();
         const iframeWrapper = document.createElement("div");
-        iframeWrapper.style.display = "flex";
-        iframeWrapper.style.flexDirection = "column";
-        iframeWrapper.style.alignItems = "flex-start";
-        iframeWrapper.style.marginBottom = "50px";
-
-        const siteLink = document.createElement("a");
-        siteLink.href = trimmedSiteUrl;
-        siteLink.textContent = trimmedSiteUrl;
-        siteLink.style.textAlign = "left";
-        siteLink.style.marginBottom = "10px";
-        iframeWrapper.appendChild(siteLink);
-
+        iframeWrapper.classList.add("iframe-wrapper");
         const iframe = document.createElement("iframe");
         iframe.src = trimmedSiteUrl;
-        iframe.style.width = "100%";
-        iframe.style.height = "600px";
-        iframe.style.border = "none";
+        iframe.setAttribute("loading", "lazy");
         iframeWrapper.appendChild(iframe);
+        return iframeWrapper;
+      };
 
+      referenceList.forEach((siteUrl) => {
+        const iframeWrapper = createIframeWrapper(siteUrl);
         iframesContainer.appendChild(iframeWrapper);
-      }
-    });
 
-    // Fonction pour basculer entre la liste et la vue en grille
-    function toggleView() {
-      if (iframesContainer.style.display === "none") {
-        iframesContainer.style.display = "flex";
-        list.style.display = "none";
-      } else {
-        iframesContainer.style.display = "none";
-        list.style.display = "block";
-      }
-    }
+        const listItem = document.createElement("li");
+        listItem.classList.add("list-item");
+        const siteLink = document.createElement("a");
+        siteLink.href = siteUrl;
+        siteLink.textContent = siteUrl;
+        listItem.appendChild(siteLink);
+        list.appendChild(listItem);
+      });
 
-    // Ajouter le bouton de bascule
-    const switchButton = document.createElement("button");
-    switchButton.textContent = "Switch";
-    switchButton.addEventListener("click", toggleView);
-    switchButton.style.position = "fixed";
-    switchButton.style.top = "10px";
-    switchButton.style.right = "10px";
-    document.body.appendChild(switchButton);
-  </script>
-</body>
+      const toggleView = () => {
+        if (iframesContainer.style.display === "none") {
+          iframesContainer.style.display = "grid";
+          list.style.display = "none";
+        } else {
+          iframesContainer.style.display = "none";
+          list.style.display = "block";
+        }
+      };
 
-<html>
+      switchButton.addEventListener("click", toggleView);
+    </script>
+  </body>
+</html>
