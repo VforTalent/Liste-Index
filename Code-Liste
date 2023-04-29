@@ -26,7 +26,7 @@
     </style>
   </head>
   <body>
-    <h1>Index de mon projet GitHub</h1>
+    <h1>RECOBOT </h1>
     <div id="iframes-container"></div>
     <script>
       const iframesContainer = document.getElementById("iframes-container");
