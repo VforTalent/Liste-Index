@@ -43,79 +43,86 @@
       }
     </style>
   </head>
-<body>
-  <h1>RECOBOT by Vfor</h1>
-  <div id="container"></div>
-  <script>
-    const referenceList = [
-      "https://studiotaktil.com/",
-      "https://www.unit.tv/",
-      "https://www.tactyc.studio/",
-      "https://www.daydreamervfx.com/",
-      "https://www.rawandrendered.com/",
-      "https://www.altcinc.com/",
-      "https://onesal.com/",
-      "https://www.firm-studio.fr/",
-      "https://spotstudio.es/",
-      "https://www.bluenode.paris/",
-      "https://www.studioriver.fr/",
-      "https://newformat.io/"
-    ];
+  <body>
+    <h1>RECOBOT by Vfor</h1>
+    <div id="iframes-container"></div>
+    <script>
+      const iframesContainer = document.getElementById("iframes-container");
 
-    referenceList.sort(function(a, b) {
-      const domainA = a.replace("www.", "");
-      const domainB = b.replace("www.", "");
-      if (domainA < domainB) {
-        return -1;
-      } else if (domainA > domainB) {
-        return 1;
-      } else {
+      // Liste de référence stockée localement
+      const referenceList = [
+        "https://studiotaktil.com/",
+        "https://www.unit.tv/",
+        "https://www.tactyc.studio/",
+        "https://www.daydreamervfx.com/",
+        "https://www.rawandrendered.com/",
+        "https://www.altcinc.com/",
+        "https://onesal.com/",
+        "https://www.firm-studio.fr/",
+        "https://spotstudio.es/",
+        "https://www.bluenode.paris/",
+        "https://www.studioriver.fr/",
+        "https://newformat.io/"
+      ];
+
+      // Trier la liste de référence par ordre alphabétique (en ignorant le préfixe "www.")
+      referenceList.sort((a, b) => {
+        const trimmedA = a.replace("www.", "").trim();
+        const trimmedB = b.replace("www.", "").trim();
+        if (trimmedA < trimmedB) {
+          return -1;
+        }
+        if (trimmedA > trimmedB) {
+          return 1;
+        }
         return 0;
+      });
+
+      // Parcourir le tableau de référence et créer dynamiquement une iframe pour chaque site web
+      referenceList.forEach((siteUrl) => {
+        const trimmedSiteUrl = siteUrl.trim();
+        if (trimmedSiteUrl.length > 0) {
+          const iframeWrapper = document.createElement("div");
+          iframeWrapper.style.display = "flex";
+          iframeWrapper.style.flexDirection = "column";
+          iframeWrapper.style.alignItems = "flex-start";
+          iframeWrapper.style.marginBottom = "50px";
+
+          const siteLink = document.createElement("a");
+          siteLink.href = trimmedSiteUrl;
+          siteLink.textContent = trimmedSiteUrl;
+          siteLink.style.textAlign = "left";
+          siteLink.style.marginBottom = "10px";
+          iframeWrapper.appendChild(siteLink);
+
+          const iframe = document.createElement("iframe");
+          iframe.src = trimmedSiteUrl;
+          iframe.style.border = "none";
+          iframeWrapper.appendChild(iframe);
+
+          iframesContainer.appendChild(iframeWrapper);
+        }
+      });
+
+      // Fonction pour basculer entre la liste et la vue en grille
+      function toggleView() {
+        if (iframesContainer.style.display === "none") {
+          iframesContainer.style.display = "flex";
+          list.style.display = "none";
+        } else {
+          iframesContainer.style.display = "none";
+          list.style.display = "block";
+        }
       }
-    });
 
-    const container = document.getElementById("container");
-
-    referenceList.forEach(siteUrl => {
-      const trimmedSiteUrl = siteUrl.trim();
-      if (trimmedSiteUrl.length > 0) {
-        const iframeWrapper = document.createElement("div");
-        iframeWrapper.style.display = "flex";
-        iframeWrapper.style.flexDirection = "column";
-        iframeWrapper.style.alignItems = "flex-start";
-        iframeWrapper.style.marginBottom = "50px";
-
-        const siteLink = document.createElement("a");
-        siteLink.href = trimmedSiteUrl;
-        siteLink.textContent = trimmedSiteUrl;
-        siteLink.style.textAlign = "left";
-        siteLink.style.marginBottom = "10px";
-        iframeWrapper.appendChild(siteLink);
-
-        const iframe = document.createElement("iframe");
-        iframe.src = trimmedSiteUrl;
-        iframe.style.width = "100%";
-        iframe.style.height = "600px";
-        iframe.style.border = "none";
-        iframeWrapper.appendChild(iframe);
-
-        container.appendChild(iframeWrapper);
-      }
-    });
-
-    const switchButton = document.createElement("button");
-    switchButton.textContent = "Switch";
-    switchButton.addEventListener("click", () => {
-      if (container.style.display === "none") {
-        container.style.display = "flex";
-      } else {
-        container.style.display = "none";
-      }
-    });
-    switchButton.style.position = "fixed";
-    switchButton.style.top = "10px";
-    switchButton.style.right = "10px";
-    document.body.appendChild(switchButton);
-  </script>
-</body>
+      // Ajouter le bouton de bascule
+      const switchButton = document.createElement("button");
+      switchButton.textContent = "Switch";
+      switchButton.style.position = "fixed";
+      switchButton.style.top = "10px";
+      switchButton.style.right = "10px";
+      switchButton.addEventListener("click", toggleView);
+      document.body.appendChild(switchButton);
+    </script>
+  </body>
 <html>
