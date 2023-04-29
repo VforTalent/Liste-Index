@@ -22,8 +22,6 @@
             if (trimmedSiteUrl.length > 0) {
               const iframe = document.createElement("iframe");
               iframe.src = trimmedSiteUrl;
-              iframe.width = "100%";
-              iframe.height = "400px";
               iframesContainer.appendChild(iframe);
             }
           });
