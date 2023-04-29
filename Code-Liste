@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Mon projet GitHub</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
       #iframes-container {
         display: flex;
@@ -15,34 +16,40 @@
         border: none;
         margin-bottom: 10px;
       }
+
+      .error-message {
+        color: red;
+        font-weight: bold;
+      }
     </style>
   </head>
   <body>
     <h1>Index de mon projet GitHub</h1>
     <div id="iframes-container"></div>
+    <div id="error-message-container"></div>
     <script>
-      const iframesContainer = document.getElementById("iframes-container");
+      const iframesContainer = $("#iframes-container");
+      const errorMessageContainer = $("#error-message-container");
 
-      // Récupérer le contenu du fichier de référence sur GitHub à l'aide de l'API
-      fetch('https://api.github.com/repos/Vfortalent/Liste-Index/contents/liste-de-reference.txt')
-        .then(response => response.json())
-        .then(data => {
-          // Convertir les données du fichier en chaîne de caractères
-          const referenceList = atob(data.content);
-
+      $.ajax({
+        url: "https://raw.githubusercontent.com/Vfortalent/Liste-Index/main/liste-de-reference.txt",
+        success: function(referenceList) {
           // Parcourir la liste de référence et créer dynamiquement une iframe pour chaque site web
-          referenceList.split('\n').forEach(siteUrl => {
+          referenceList.split("\n").forEach((siteUrl) => {
             const trimmedSiteUrl = siteUrl.trim();
             if (trimmedSiteUrl.length > 0) {
-              const iframe = document.createElement("iframe");
-              iframe.src = trimmedSiteUrl;
-              iframe.width = "100%";
-              iframe.height = "600px";
-              iframesContainer.appendChild(iframe);
+              const iframe = $("<iframe></iframe>");
+              iframe.attr("src", trimmedSiteUrl);
+              iframe.attr("width", "100%");
+              iframe.attr("height", "600px");
+              iframesContainer.append(iframe);
             }
           });
-        })
-        .catch(error => console.error(error));
+        },
+        error: function(xhr, status, error) {
+          errorMessageContainer.text(`Une erreur s'est produite : ${error}`);
+        },
+      });
     </script>
   </body>
 </html>
