@@ -2,15 +2,29 @@
 <html>
   <head>
     <title>Mon projet GitHub</title>
+    <style>
+      #iframes-container {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+
+      iframe {
+        width: 100%;
+        height: 600px;
+        border: none;
+        margin-bottom: 10px;
+      }
+    </style>
   </head>
   <body>
-    <h1>Vfor Talent</h1>
+    <h1>Index de mon projet GitHub</h1>
     <div id="iframes-container"></div>
     <script>
       const iframesContainer = document.getElementById("iframes-container");
       
       // Récupérer le contenu du fichier de référence sur GitHub à l'aide de l'API
-      fetch('https://api.github.com/repos/Vfortalent/Liste-Index/contents/liste-de-reference.txt')
+      fetch('https://api.github.com/repos/nomutilisateur/nomprojet/contents/liste-de-reference.txt')
         .then(response => response.json())
         .then(data => {
           // Convertir les données du fichier en chaîne de caractères
@@ -22,6 +36,8 @@
             if (trimmedSiteUrl.length > 0) {
               const iframe = document.createElement("iframe");
               iframe.src = trimmedSiteUrl;
+              iframe.width = "100%";
+              iframe.height = "600px";
               iframesContainer.appendChild(iframe);
             }
           });
@@ -30,38 +46,3 @@
     </script>
   </body>
 </html>
-<html>
-<head>
-	<title>Basculer entre une vue en grille et une vue en liste</title>
-	<style>
-		/* Styles pour les images en grille */
-		.grid-container {
-			display: grid;
-			grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-			grid-gap: 20px;
-		}
-
-		.grid-item {
-			border: 1px solid black;
-			padding: 20px;
-			text-align: center;
-		}
-
-		/* Styles pour les images en liste */
-		.list-container {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			gap: 20px;
-		}
-
-		.list-item {
-			border: 1px solid black;
-			padding: 20px;
-			text-align: center;
-			width: 100%;
-			box-sizing: border-box;
-		}
-	</style>
-</head>
-<html>
