@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Mon projet avec serveur local</title>
-  </head>
-  <head>
+    <title>Mon projet GitHub</title>
     <style>
       #iframes-container {
         display: flex;
@@ -12,7 +10,7 @@
       }
 
       iframe {
-        width: calc(33.33% - 10px);
+        width: calc(33.33% - 50px);
         height: 600px;
         border: none;
         margin: 25px;
@@ -27,13 +25,13 @@
       }
     </style>
   </head>
-<body>
-    <h1>Index de mon projet GitHub</h1>
+  <body>
+    <h1>RECOBOT by Vfor</h1>
     <div id="iframes-container"></div>
     <script>
       const iframesContainer = document.getElementById("iframes-container");
       
-         // Liste de référence stockée localement
+      // Liste de référence stockée localement
       const referenceList = [
         "https://studiotaktil.com/",
         "https://www.unit.tv/",
@@ -49,45 +47,36 @@
         "https://newformat.io/"
       ];
 
-      // Récupérer le contenu du fichier de référence sur GitHub à l'aide de l'API
-      fetch('https://raw.githubusercontent.com/nomutilisateur/nomprojet/main/liste-de-reference.txt')
-        .then(response => response.text())
-        .then(data => {
-          // Convertir les données du fichier en tableau
-          const referenceList = data.trim().split('\n');
+      // Trier la liste de référence par ordre alphabétique
+      referenceList.sort();
 
-          // Trier le tableau par ordre alphabétique
-          referenceList.sort();
+      // Parcourir le tableau de référence et créer dynamiquement une iframe pour chaque site web
+      referenceList.forEach(siteUrl => {
+        const trimmedSiteUrl = siteUrl.trim();
+        if (trimmedSiteUrl.length > 0) {
+          const iframeWrapper = document.createElement("div");
+          iframeWrapper.style.display = "flex";
+          iframeWrapper.style.flexDirection = "column";
+          iframeWrapper.style.alignItems = "flex-start";
+          iframeWrapper.style.marginBottom = "50px";
 
-          // Parcourir le tableau de référence et créer dynamiquement une iframe pour chaque site web
-          referenceList.forEach(siteUrl => {
-            const trimmedSiteUrl = siteUrl.trim();
-            if (trimmedSiteUrl.length > 0) {
-              const iframeWrapper = document.createElement("div");
-              iframeWrapper.style.display = "flex";
-              iframeWrapper.style.flexDirection = "column";
-              iframeWrapper.style.alignItems = "flex-start";
-              iframeWrapper.style.marginBottom = "50px";
+          const siteLink = document.createElement("a");
+          siteLink.href = trimmedSiteUrl;
+          siteLink.textContent = trimmedSiteUrl;
+          siteLink.style.textAlign = "left";
+          siteLink.style.marginBottom = "10px";
+          iframeWrapper.appendChild(siteLink);
 
-              const siteLink = document.createElement("a");
-              siteLink.href = trimmedSiteUrl;
-              siteLink.textContent = trimmedSiteUrl;
-              siteLink.style.textAlign = "left";
-              siteLink.style.marginBottom = "10px";
-              iframeWrapper.appendChild(siteLink);
+          const iframe = document.createElement("iframe");
+          iframe.src = trimmedSiteUrl;
+          iframe.style.width = "100%";
+          iframe.style.height = "600px";
+          iframe.style.border = "none";
+          iframeWrapper.appendChild(iframe);
 
-              const iframe = document.createElement("iframe");
-              iframe.src = trimmedSiteUrl;
-              iframe.style.width = "100%";
-              iframe.style.height = "600px";
-              iframe.style.border = "none";
-              iframeWrapper.appendChild(iframe);
-
-              iframesContainer.appendChild(iframeWrapper);
-            }
-          });
-        })
-        .catch(error => console.error(error));
+          iframesContainer.appendChild(iframeWrapper);
+        }
+      });
     </script>
   </body>
 </html>
