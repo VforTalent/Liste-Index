@@ -3,39 +3,6 @@
   <head>
     <title>Mon projet avec serveur local</title>
   </head>
-  <body>
-    <h1>Vfor Talent</h1>
-    <div id="iframes-container"></div>
-    <script>
-      const iframesContainer = document.getElementById("iframes-container");
-
-      // Liste de référence stockée localement
-      const referenceList = [
-        "https://studiotaktil.com/",
-        "https://www.unit.tv/",
-        "https://www.tactyc.studio/",
-        "https://www.daydreamervfx.com/",
-        "https://www.rawandrendered.com/",
-        "https://www.altcinc.com/",
-        "https://onesal.com/",
-        "https://www.firm-studio.fr/",
-        "https://spotstudio.es/",
-        "https://www.bluenode.paris/",
-        "https://www.studioriver.fr/",
-        "https://newformat.io/"
-      ];
-
-      // Parcourir la liste de référence et créer dynamiquement une iframe pour chaque site web
-      referenceList.forEach(siteUrl => {
-        const trimmedSiteUrl = siteUrl.trim();
-        if (trimmedSiteUrl.length > 0) {
-          const iframe = document.createElement("iframe");
-          iframe.src = trimmedSiteUrl;
-          iframesContainer.appendChild(iframe);
-        }
-      });
-    </script>
-  </body>
   <head>
     <style>
       #iframes-container {
@@ -60,27 +27,62 @@
       }
     </style>
   </head>
-    <body>
+<body>
     <h1>Index de mon projet GitHub</h1>
     <div id="iframes-container"></div>
     <script>
       const iframesContainer = document.getElementById("iframes-container");
+      
+         // Liste de référence stockée localement
+      const referenceList = [
+        "https://studiotaktil.com/",
+        "https://www.unit.tv/",
+        "https://www.tactyc.studio/",
+        "https://www.daydreamervfx.com/",
+        "https://www.rawandrendered.com/",
+        "https://www.altcinc.com/",
+        "https://onesal.com/",
+        "https://www.firm-studio.fr/",
+        "https://spotstudio.es/",
+        "https://www.bluenode.paris/",
+        "https://www.studioriver.fr/",
+        "https://newformat.io/"
+      ];
 
       // Récupérer le contenu du fichier de référence sur GitHub à l'aide de l'API
-      fetch('https://raw.githubusercontent.com/Vfortalent/Liste-Index/main/liste-de-reference.txt')
+      fetch('https://raw.githubusercontent.com/nomutilisateur/nomprojet/main/liste-de-reference.txt')
         .then(response => response.text())
-        .then(referenceList => {
-          // Parcourir la liste de référence et créer dynamiquement une iframe pour chaque site web
-          referenceList.split('\n').forEach(siteUrl => {
+        .then(data => {
+          // Convertir les données du fichier en tableau
+          const referenceList = data.trim().split('\n');
+
+          // Trier le tableau par ordre alphabétique
+          referenceList.sort();
+
+          // Parcourir le tableau de référence et créer dynamiquement une iframe pour chaque site web
+          referenceList.forEach(siteUrl => {
             const trimmedSiteUrl = siteUrl.trim();
             if (trimmedSiteUrl.length > 0) {
               const iframeWrapper = document.createElement("div");
+              iframeWrapper.style.display = "flex";
+              iframeWrapper.style.flexDirection = "column";
+              iframeWrapper.style.alignItems = "flex-start";
+              iframeWrapper.style.marginBottom = "50px";
+
+              const siteLink = document.createElement("a");
+              siteLink.href = trimmedSiteUrl;
+              siteLink.textContent = trimmedSiteUrl;
+              siteLink.style.textAlign = "left";
+              siteLink.style.marginBottom = "10px";
+              iframeWrapper.appendChild(siteLink);
+
               const iframe = document.createElement("iframe");
-              const iframeTitle = document.createElement("h2");
               iframe.src = trimmedSiteUrl;
-              iframeTitle.innerHTML = trimmedSiteUrl;
-              iframeWrapper.appendChild(iframeTitle);
+              iframe.style.width = "100%";
+              iframe.style.height = "600px";
+              iframe.style.border = "none";
               iframeWrapper.appendChild(iframe);
+
               iframesContainer.appendChild(iframeWrapper);
             }
           });
