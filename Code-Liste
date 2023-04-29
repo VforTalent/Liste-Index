@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mon projet GitHub</title>
+  </head>
+  <body>
+    <h1>Vfor Talent</h1>
+    <div id="iframes-container"></div>
+    <script>
+      const iframesContainer = document.getElementById("iframes-container");
+      
+      // Récupérer le contenu du fichier de référence sur GitHub à l'aide de l'API
+      fetch('https://api.github.com/repos/Vfortalent/Liste-Index/contents/liste-de-reference.txt')
+        .then(response => response.json())
+        .then(data => {
+          // Convertir les données du fichier en chaîne de caractères
+          const referenceList = atob(data.content);
+          
+          // Parcourir la liste de référence et créer dynamiquement une iframe pour chaque site web
+          referenceList.split('\n').forEach(siteUrl => {
+            const trimmedSiteUrl = siteUrl.trim();
+            if (trimmedSiteUrl.length > 0) {
+              const iframe = document.createElement("iframe");
+              iframe.src = trimmedSiteUrl;
+              iframe.width = "100%";
+              iframe.height = "400px";
+              iframesContainer.appendChild(iframe);
+            }
+          });
+        })
+        .catch(error => console.error(error));
+    </script>
+  </body>
+</html>
