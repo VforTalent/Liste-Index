@@ -6,7 +6,7 @@
     <style>
       #iframes-container {
         display: grid;
-        grid-template-columns: repeat(auto-fit, calc(33.33% - 50px));
+        grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
         gap: 20px;
       }
       .iframe-wrapper {
@@ -75,10 +75,10 @@
       });
 
       const toggleView = () => {
-        if (iframesContainer.style.gridTemplateColumns === "repeat(auto-fit, calc(33.33% - 50px))") {
+        if (iframesContainer.style.gridTemplateColumns === "repeat(auto-fit, minmax(500px, 1fr))") {
           iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(calc(100vw / 1), 1fr))";
         } else {
-          iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(300px, 1fr))";
+          iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(500px, 1fr))";
         }
       };
 
