@@ -39,27 +39,21 @@
 
       const referenceList = [
         "https://17mars.com",
-        "https://1806.agency",
         "https://3d-something.com/",
         "https://www.908video.de/",
         "https://ac3-studio.com/",
         "https://www.aggressive.tv/",
-        "https://aimcreativestudios.com/",
         "https://aixsponza.com/",
         "https://antibody.tv/",
-        "https://artbox.nl",
         "https://denisassor.com/",
         "https://www.atrbute.com/",
         "https://alexandreavram.com",
-        "https://www.ba-reps.com",
         "https://marcobergstein.com/",
         "https://bisous-production.com/",
         "https://www.bleedvfx.com",
         "https://www.blublustudios.com/",
         "https://aboeinghoff.com",
-        "https://buck.co",
         "https://builders-club.com/",
-        "https://www.bus.group",
         "https://butt-studio.com/",
         "https://www.fredericcolin.com/",
         "https://catk.de/",
@@ -70,13 +64,10 @@
         "https://www.feelingvisuel.com",
         "https://finalfrontier.tv",
         "https://www.fluentstudio.co.uk",
-        "https://www.found-studio.com/",
         "https://www.futurepowerstation.com",
-        "https://frame.dk/",
         "https://futuredeluxe.com/",
         "https://sylvaingaussens.com/",
         "https://www.glassworksvfx.com",
-        "https://www.goldenwolf.tv",
         "https://www.hyp3rion.com/",
         "https://www.i-reel.fr/",
         "https://calango.nl/",
@@ -86,7 +77,6 @@
         "https://www.les-monstres.com",
         "https://mvsm.com/",
         "https://media.work/",
-        "https://mushroom.es",
         "https://studiotaktil.com/",
         "https://www.unit.tv/",
         "https://www.daydreamervfx.com/",
@@ -98,6 +88,24 @@
         "https://www.bluenode.paris/",
         "https://www.studioriver.fr/",
         "https://newformat.io/",
+        "https://www.monarch.tv/"
+        "https://www.monumental.art/"
+        "https://xk.studio/"
+        "https://www.manor.studio/"
+        "https://www.studioprivate.co.uk/"
+        "https://www.replica.works/"
+        "https://www.vforstudio.com/"
+        "https://mvsm.com/"
+        "https://www.trizz.tv/"
+        "https://sixnfive.com/"
+        "https://www.meltvfx.com/"
+        "https://posthuman.studio/"
+        "https://le-truc.ch/"
+        "https://abra.network/"
+        "https://yambo-studio.com/"
+        "https://wangsoderstrom.com/"
+        "https://nexusstudios.com/"
+        "https://www.tomorrowbureau.io/"
       ];
 
       referenceList.sort((a, b) => {
@@ -113,6 +121,7 @@
         const iframe = document.createElement("iframe");
         iframe.src = trimmedSiteUrl;
         iframe.setAttribute("loading", "lazy");
+        iframe.loading = "lazy";
         iframeWrapper.appendChild(iframe);
         return iframeWrapper;
       };
