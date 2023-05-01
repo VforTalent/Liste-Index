@@ -75,7 +75,7 @@
       });
 
       const toggleView = () => {
-        if (iframesContainer.style.gridTemplateColumns === "repeat(auto-fit, minmax(300px, 1fr))") {
+        if (iframesContainer.style.gridTemplateColumns === "repeat(auto-fit, calc(33.33% - 50px))") {
           iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(calc(100vw / 1), 1fr))";
         } else {
           iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(300px, 1fr))";
