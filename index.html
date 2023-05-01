@@ -6,7 +6,7 @@
     <style>
       #iframes-container {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 20px;
       }
       .iframe-wrapper {
@@ -21,6 +21,19 @@
         left: 0;
         width: 100%;
         height: 100%;
+      }
+            .iframe-wrapper > .site-name {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: #fff;
+        font-weight: bold;
+        text-align: center;
+        padding: 10px;
+        box-sizing: border-box;
+        z-index: 1;
       }
       .switch-button {
         position: fixed;
@@ -38,24 +51,86 @@
       const switchButton = document.querySelector(".switch-button");
 
       const referenceList = [
-        "https://www.monarch.tv/"
-        "https://www.monumental.art/"
-        "https://xk.studio/"
-        "https://www.manor.studio/"
-        "https://www.studioprivate.co.uk/"
-        "https://www.replica.works/"
-        "https://www.vforstudio.com/"
-        "https://mvsm.com/"
-        "https://www.trizz.tv/"
-        "https://sixnfive.com/"
-        "https://www.meltvfx.com/"
-        "https://posthuman.studio/"
-        "https://le-truc.ch/"
-        "https://abra.network/"
-        "https://yambo-studio.com/"
-        "https://wangsoderstrom.com/"
-        "https://nexusstudios.com/"
-        "https://www.tomorrowbureau.io/"
+        "https://17mars.com/",
+        "https://3d-something.com/",
+        "https://www.908video.de/",
+        "https://ac3-studio.com/",
+        "https://www.aggressive.tv/",
+        "https://aixsponza.com/",
+        "https://antibody.tv/",
+        "https://denisassor.com/",
+        "https://www.atrbute.com/",
+        "https://alexandreavram.com",
+        "https://marcobergstein.com/",
+        "https://bisous-production.com/",
+        "https://www.bleedvfx.com/",
+        "https://www.blublustudios.com/",
+        "https://aboeinghoff.com/",
+        "https://builders-club.com/",
+        "https://butt-studio.com/",
+        "https://www.fredericcolin.com/",
+        "https://catk.de/",
+        "https://adriendezalay.com/",
+        "https://ditroit.it/",
+        "https://janelsner.com/",
+        "https://www.faubourg.tv/",
+        "https://www.feelingvisuel.com/",
+        "https://finalfrontier.tv/",
+        "https://www.fluentstudio.co.uk/",
+        "https://www.futurepowerstation.com/",
+        "https://futuredeluxe.com/",
+        "https://sylvaingaussens.com/",
+        "https://www.glassworksvfx.com/",
+        "https://www.hyp3rion.com/",
+        "https://www.i-reel.fr/",
+        "https://calango.nl/",
+        "https://jvg.es/« ,
+        "https://korb.tv/",
+        "https://lecube.tv/",
+        "https://www.les-monstres.com/« ,
+        "https://mvsm.com/",
+        "https://media.work/",
+        "https://studiotaktil.com/",
+        "https://www.unit.tv/",
+        "https://www.daydreamervfx.com/",
+        "https://www.rawandrendered.com/",
+        "https://www.altcinc.com/",
+        "https://onesal.com/",
+        "https://www.firm-studio.fr/",
+        "https://spotstudio.es/",
+        "https://www.bluenode.paris/",
+        "https://www.studioriver.fr/",
+        "https://newformat.io/",
+        "https://www.monarch.tv/",
+        "https://www.monumental.art/",
+        "https://xk.studio/",
+        "https://www.manor.studio/",
+        "https://www.studioprivate.co.uk/",
+        "https://www.replica.works/",
+        "https://www.vforstudio.com/",
+        "https://mvsm.com/",
+        "https://www.trizz.tv/",
+        "https://sixnfive.com/",
+        "https://www.meltvfx.com/",
+        "https://posthuman.studio/",
+        "https://le-truc.ch/",
+        "https://abra.network/",
+        "https://yambo-studio.com/",
+        "https://wangsoderstrom.com/",
+        "https://nexusstudios.com/",
+        "https://www.tomorrowbureau.io/",
+        "https://studiotaktil.com/",
+        "https://www.unit.tv/",
+        "https://www.tactyc.studio/",
+        "https://www.daydreamervfx.com/",
+        "https://www.rawandrendered.com/",
+        "https://www.altcinc.com/",
+        "https://onesal.com/",
+        "https://www.firm-studio.fr/",
+        "https://spotstudio.es/",
+        "https://www.bluenode.paris/",
+        "https://www.studioriver.fr/",
+        "https://newformat.io/",
       ];
 
       referenceList.sort((a, b) => {
@@ -81,7 +156,7 @@
       });
 
       const toggleView = () => {
-        if (iframesContainer.style.gridTemplateColumns === "repeat(auto-fit, minmax(500px, 1fr))") {
+        if (iframesContainer.style.gridTemplateColumns === "repeat(auto-fit, minmax(300px, 1fr))") {
           iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(calc(100vw / 1), 1fr))";
         } else {
           iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(300px, 1fr))";
