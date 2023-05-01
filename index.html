@@ -22,15 +22,6 @@
         width: 100%;
         height: 100%;
       }
-      .list {
-        display: none;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
-      .list-item {
-        margin-bottom: 20px;
-      }
       .switch-button {
         position: fixed;
         top: 10px;
@@ -41,11 +32,9 @@
   <body>
     <h1>RECOBOT by Vfor</h1>
     <div id="iframes-container"></div>
-    <ul id="list"></ul>
     <button class="switch-button">Switch</button>
     <script>
       const iframesContainer = document.getElementById("iframes-container");
-      const list = document.getElementById("list");
       const switchButton = document.querySelector(".switch-button");
 
       const referenceList = [
@@ -83,23 +72,13 @@
       referenceList.forEach((siteUrl) => {
         const iframeWrapper = createIframeWrapper(siteUrl);
         iframesContainer.appendChild(iframeWrapper);
-
-        const listItem = document.createElement("li");
-        listItem.classList.add("list-item");
-        const siteLink = document.createElement("a");
-        siteLink.href = siteUrl;
-        siteLink.textContent = siteUrl;
-        listItem.appendChild(siteLink);
-        list.appendChild(listItem);
       });
 
       const toggleView = () => {
-        if (iframesContainer.style.display === "none") {
-          iframesContainer.style.display = "grid";
-          list.style.display = "none";
+        if (iframesContainer.style.gridTemplateColumns === "repeat(auto-fit, minmax(300px, 1fr))") {
+          iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(calc(100vw / 1), 1fr))";
         } else {
-          iframesContainer.style.display = "none";
-          list.style.display = "block";
+          iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(300px, 1fr))";
         }
       };
 
