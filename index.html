@@ -22,7 +22,7 @@
         width: 100%;
         height: 100%;
       }
-            .iframe-wrapper > .site-name {
+      .iframe-wrapper > .site-name {
         position: absolute;
         top: 0;
         left: 0;
@@ -84,10 +84,10 @@
         "https://www.hyp3rion.com/",
         "https://www.i-reel.fr/",
         "https://calango.nl/",
-        "https://jvg.es/« ,
+        "https://jvg.es/",
         "https://korb.tv/",
         "https://lecube.tv/",
-        "https://www.les-monstres.com/« ,
+        "https://www.les-monstres.com/",
         "https://mvsm.com/",
         "https://media.work/",
         "https://studiotaktil.com/",
@@ -143,6 +143,8 @@
         const trimmedSiteUrl = url.trim();
         const iframeWrapper = document.createElement("div");
         iframeWrapper.classList.add("iframe-wrapper");
+        const siteName = document.createElement("div");
+        siteName.classList.add("site-name");
         const iframe = document.createElement("iframe");
         iframe.src = trimmedSiteUrl;
         iframe.setAttribute("loading", "lazy");
