@@ -136,14 +136,16 @@
         "https://www.studioriver.fr/",
         "https://newformat.io/",
       ];
-      referenceList = [...new Set(referenceList)];
-     });
+
       referenceList.sort((a, b) => {
         const aWithoutWWW = a.replace("www.", "");
         const bWithoutWWW = b.replace("www.", "");
         return aWithoutWWW.localeCompare(bWithoutWWW);
       });
-
+      
+      referenceList = [...new Set(referenceList)];
+     });
+      
       const createIframeWrapper = (url) => {
         const trimmedSiteUrl = url.trim();
         const iframeWrapper = document.createElement("div");
