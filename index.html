@@ -22,6 +22,20 @@
         width: 100%;
         height: 100%;
       }
+      .iframe-wrapper::before {
+        content: attr(data-url);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1;
+        box-sizing: border-box;
+      }
       .switch-button {
         position: fixed;
         top: 10px;
@@ -125,10 +139,13 @@
         return aWithoutWWW.localeCompare(bWithoutWWW);
       });
 
-      const createIframeWrapper = (url) => {
+        const createIframeWrapper = (url) => {
         const trimmedSiteUrl = url.trim();
         const iframeWrapper = document.createElement("div");
         iframeWrapper.classList.add("iframe-wrapper");
+        const reference = document.createElement("div");
+        reference.textContent = trimmedSiteUrl;
+        iframeWrapper.appendChild(reference);
         const iframe = document.createElement("iframe");
         iframe.src = trimmedSiteUrl;
         iframe.setAttribute("loading", "lazy");
