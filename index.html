@@ -139,13 +139,10 @@
         return aWithoutWWW.localeCompare(bWithoutWWW);
       });
 
-        const createIframeWrapper = (url) => {
+      const createIframeWrapper = (url) => {
         const trimmedSiteUrl = url.trim();
         const iframeWrapper = document.createElement("div");
         iframeWrapper.classList.add("iframe-wrapper");
-        const reference = document.createElement("div");
-        reference.textContent = trimmedSiteUrl;
-        iframeWrapper.appendChild(reference);
         const iframe = document.createElement("iframe");
         iframe.src = trimmedSiteUrl;
         iframe.setAttribute("loading", "lazy");
@@ -157,24 +154,16 @@
         const iframeWrapper = createIframeWrapper(siteUrl);
         iframesContainer.appendChild(iframeWrapper);
       });
-const toggleView = () => {
-  if (iframesContainer.style.gridTemplateColumns === "repeat(auto-fit, minmax(300px, 1fr))") {
-    iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(calc(100vw / 1), 1fr))";
-  } else {
-    iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(300px, 1fr))";
-  }
-};
 
-switchButton.addEventListener("click", toggleView);
-const toggleView = () => {
-  if (iframesContainer.style.gridTemplateColumns === "repeat(auto-fit, minmax(300px, 1fr))") {
-    iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(calc(100vw / 1), 1fr))";
-  } else {
-    iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(300px, 1fr))";
-  }
-};
+      const toggleView = () => {
+        if (iframesContainer.style.gridTemplateColumns === "repeat(auto-fit, minmax(300px, 1fr))") {
+          iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(calc(100vw / 1), 1fr))";
+        } else {
+          iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(300px, 1fr))";
+        }
+      };
 
-switchButton.addEventListener("click", toggleView);
+      switchButton.addEventListener("click", toggleView);
     </script>
   </body>
 </html>
