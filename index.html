@@ -136,7 +136,8 @@
         "https://www.studioriver.fr/",
         "https://newformat.io/",
       ];
-
+      referenceList = [...new Set(referenceList)];
+     });
       referenceList.sort((a, b) => {
         const aWithoutWWW = a.replace("www.", "");
         const bWithoutWWW = b.replace("www.", "");
