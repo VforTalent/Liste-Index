@@ -157,16 +157,24 @@
         const iframeWrapper = createIframeWrapper(siteUrl);
         iframesContainer.appendChild(iframeWrapper);
       });
+const toggleView = () => {
+  if (iframesContainer.style.gridTemplateColumns === "repeat(auto-fit, minmax(300px, 1fr))") {
+    iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(calc(100vw / 1), 1fr))";
+  } else {
+    iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(300px, 1fr))";
+  }
+};
 
-      const toggleView = () => {
-        if (iframesContainer.style.gridTemplateColumns === "repeat(auto-fit, minmax(500px, 1fr))") {
-          iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(calc(100vw / 1), 1fr))";
-        } else {
-          iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(800px, 1fr))";
-        }
-      };
+switchButton.addEventListener("click", toggleView);
+const toggleView = () => {
+  if (iframesContainer.style.gridTemplateColumns === "repeat(auto-fit, minmax(300px, 1fr))") {
+    iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(calc(100vw / 1), 1fr))";
+  } else {
+    iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(300px, 1fr))";
+  }
+};
 
-      switchButton.addEventListener("click", toggleView);
+switchButton.addEventListener("click", toggleView);
     </script>
   </body>
 </html>
