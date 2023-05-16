@@ -52,7 +52,7 @@
       const switchButton = document.querySelector(".switch-button");
 
       const referenceList = [
-        "https://wwww.vforstudio.com/",
+       "https://wwww.vforstudio.com/",
         "https://unireso-studio.com/",
         "https://additivestudios.co.uk/",
         "https://www.dkft.fr/",
@@ -159,9 +159,8 @@
         const aWithoutWWW = a.replace("www.", "");
         const bWithoutWWW = b.replace("www.", "");
         return aWithoutWWW.localeCompare(bWithoutWWW);
-        
-     });
-      
+      });
+
       const createIframeWrapper = (url) => {
         const trimmedSiteUrl = url.trim();
         const iframeWrapper = document.createElement("div");
@@ -173,20 +172,23 @@
         return iframeWrapper;
       };
 
+      const fragment = document.createDocumentFragment(); // Utilisation d'un fragment pour améliorer les performances
+
       referenceList.forEach((siteUrl) => {
         const iframeWrapper = createIframeWrapper(siteUrl);
-        iframesContainer.appendChild(iframeWrapper);
+        fragment.appendChild(iframeWrapper);
       });
+
+      iframesContainer.appendChild(fragment); // Ajout des iframes en une seule opération
 
       const toggleView = () => {
         if (iframesContainer.style.gridTemplateColumns === "repeat(auto-fit, minmax(500px, 1fr))") {
           iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(calc(100vw / 1), 1fr))";
         } else {
           iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(500px, 1fr))";
-        }
-      };
-
-      switchButton.addEventListener("click", toggleView);
-    </script>
+}
+};
+       switchButton.addEventListener("click", toggleView);
+</script>
   </body>
 </html>
