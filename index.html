@@ -11,7 +11,7 @@
       }
       .iframe-wrapper {
         position: relative;
-        height: 0;
+        /*height: 0;*/
         padding-bottom: 56.25%; /* 16:9 aspect ratio */
         overflow: hidden;
       }
@@ -36,6 +36,19 @@
         z-index: 1;
         box-sizing: border-box;
       }
+      .iframe-name {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 2;
+        box-sizing: border-box;
+      }
       .switch-button {
         position: fixed;
         top: 10px;
@@ -52,7 +65,7 @@
       const switchButton = document.querySelector(".switch-button");
 
       const referenceList = [
-       "https://wwww.vforstudio.com/",
+     "https://wwww.vforstudio.com/",
         "https://unireso-studio.com/",
         "https://additivestudios.co.uk/",
         "https://www.dkft.fr/",
@@ -155,10 +168,16 @@
         "https://www.dada-projects.com/",
       ];
 
+      const extractSiteName = (url) => {
+        const hostname = new URL(url).hostname;
+        const siteName = hostname.replace("www.", "");
+        return siteName;
+      };
+
       referenceList.sort((a, b) => {
-        const aWithoutWWW = a.replace("www.", "");
-        const bWithoutWWW = b.replace("www.", "");
-        return aWithoutWWW.localeCompare(bWithoutWWW);
+        const siteNameA = extractSiteName(a);
+        const siteNameB = extractSiteName(b);
+        return siteNameA.localeCompare(siteNameB);
       });
 
       const createIframeWrapper = (url) => {
@@ -169,26 +188,37 @@
         iframe.src = trimmedSiteUrl;
         iframe.setAttribute("loading", "lazy");
         iframeWrapper.appendChild(iframe);
-        return iframeWrapper;
-      };
+            const siteName = extractSiteName(trimmedSiteUrl);
+    const iframeName = document.createElement("div");
+    iframeName.classList.add("iframe-name");
+    iframeName.innerText = siteName;
+    iframeWrapper.appendChild(iframeName);
+    return iframeWrapper;
+  };
 
-      const fragment = document.createDocumentFragment(); // Utilisation d'un fragment pour améliorer les performances
+  const fragment = document.createDocumentFragment();
 
-      referenceList.forEach((siteUrl) => {
-        const iframeWrapper = createIframeWrapper(siteUrl);
-        fragment.appendChild(iframeWrapper);
-      });
+  referenceList.forEach((siteUrl) => {
+    const iframeWrapper = createIframeWrapper(siteUrl);
+    fragment.appendChild(iframeWrapper);
+  });
 
-      iframesContainer.appendChild(fragment); // Ajout des iframes en une seule opération
+  iframesContainer.appendChild(fragment);
 
-      const toggleView = () => {
-        if (iframesContainer.style.gridTemplateColumns === "repeat(auto-fit, minmax(500px, 1fr))") {
-          iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(calc(100vw / 1), 1fr))";
-        } else {
-          iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(500px, 1fr))";
-}
-};
-       switchButton.addEventListener("click", toggleView);
+  const toggleView = () => {
+    if (
+      iframesContainer.style.gridTemplateColumns ===
+      "repeat(auto-fit, minmax(500px, 1fr))"
+    ) {
+      iframesContainer.style.gridTemplateColumns =
+        "repeat(auto-fit, minmax(calc(100vw / 1), 1fr))";
+    } else {
+      iframesContainer.style.gridTemplateColumns =
+        "repeat(auto-fit, minmax(500px, 1fr))";
+    }
+  };
+
+  switchButton.addEventListener("click", toggleView);
 </script>
   </body>
 </html>
