@@ -60,9 +60,15 @@
     <h1>ROCOBOT by Vfor Talent</h1>
     <div id="iframes-container"></div>
     <button class="switch-button">Switch</button>
+    <div class="pagination">
+      <button id="prev-page">Page précédente</button>
+      <button id="next-page">Page suivante</button>
+    </div>
     <script>
       const iframesContainer = document.getElementById("iframes-container");
       const switchButton = document.querySelector(".switch-button");
+      const prevPageButton = document.getElementById("prev-page");
+      const nextPageButton = document.getElementById("next-page");
 
       const referenceList = [
      "https://wwww.vforstudio.com/",
@@ -81,7 +87,6 @@
         "https://antibody.tv/",
         "https://denisassor.com/",
         "https://www.atrbute.com/",
-        "https://alexandreavram.com",
         "https://marcobergstein.com/",
         "https://bisous-production.com/",
         "https://www.bleedvfx.com/",
@@ -99,7 +104,6 @@
         "https://finalfrontier.tv/",
         "https://www.fluentstudio.co.uk/",
         "https://www.futurepowerstation.com/",
-        "https://futuredeluxe.com/",
         "https://sylvaingaussens.com/",
         "https://www.glassworksvfx.com/",
         "https://www.hyp3rion.com/",
@@ -117,11 +121,9 @@
         "https://newformat.io/",
         "https://www.monarch.tv/",
         "https://www.monumental.art/",
-        "https://xk.studio/",
         "https://www.manor.studio/",
         "https://www.studioprivate.co.uk/",
         "https://www.replica.works/",
-        "https://mvsm.com/",
         "https://www.trizz.tv/",
         "https://sixnfive.com/",
         "https://www.meltvfx.com/",
@@ -145,8 +147,6 @@
         "https://www.alreadybeenchewed.tv/",
         "https://analogstudio.co.uk/",
         "https://untoldstudios.tv/",
-        "https://gmunk.com/",
-        "https://www.hmxmedia.com/",
         "https://zeitguised.com/",
         "https://fyihenriksson.com/",
         "https://sehsucht.de/",
@@ -195,21 +195,17 @@
         "https://www.pleid.st/",
         "https://www.clan.team/",
         "https://www.weareseventeen.com/",
-        "https://www.weareseventeen.com/",
         "https://www.alreadybeenchewed.tv/",
       ];
+
+      const itemsPerPage = 10;
+      let currentPage = 1;
 
       const extractSiteName = (url) => {
         const hostname = new URL(url).hostname;
         const siteName = hostname.replace("www.", "");
         return siteName;
       };
-
-      referenceList.sort((a, b) => {
-        const siteNameA = extractSiteName(a);
-        const siteNameB = extractSiteName(b);
-        return siteNameA.localeCompare(siteNameB);
-      });
 
       const createIframeWrapper = (url) => {
         const trimmedSiteUrl = url.trim();
@@ -219,37 +215,60 @@
         iframe.src = trimmedSiteUrl;
         iframe.setAttribute("loading", "lazy");
         iframeWrapper.appendChild(iframe);
-            const siteName = extractSiteName(trimmedSiteUrl);
-    const iframeName = document.createElement("div");
-    iframeName.classList.add("iframe-name");
-    iframeName.innerText = siteName;
-    iframeWrapper.appendChild(iframeName);
-    return iframeWrapper;
-  };
+        const siteName = extractSiteName(trimmedSiteUrl);
+        const iframeName = document.createElement("div");
+        iframeName.classList.add("iframe-name");
+        iframeName.innerText = siteName;
+        iframeWrapper.appendChild(iframeName);
+        return iframeWrapper;
+      };
 
-  const fragment = document.createDocumentFragment();
+      const updatePageButtons = () => {
+        prevPageButton.disabled = currentPage === 1;
+        nextPageButton.disabled = currentPage === Math.ceil(referenceList.length / itemsPerPage);
+      };
 
-  referenceList.forEach((siteUrl) => {
-    const iframeWrapper = createIframeWrapper(siteUrl);
-    fragment.appendChild(iframeWrapper);
-  });
+      const renderPage = () => {
+        iframesContainer.innerHTML = "";
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const pageItems = referenceList.slice(startIndex, endIndex);
+        pageItems.forEach((siteUrl) => {
+          const iframeWrapper = createIframeWrapper(siteUrl);
+          iframesContainer.appendChild(iframeWrapper);
+        });
+        updatePageButtons();
+      };
 
-  iframesContainer.appendChild(fragment);
+      prevPageButton.addEventListener("click", () => {
+        if (currentPage > 1) {
+          currentPage--;
+          renderPage();
+        }
+      });
 
-  const toggleView = () => {
-    if (
-      iframesContainer.style.gridTemplateColumns ===
-      "repeat(auto-fit, minmax(500px, 1fr))"
-    ) {
-      iframesContainer.style.gridTemplateColumns =
-        "repeat(auto-fit, minmax(calc(100vw / 1), 1fr))";
-    } else {
-      iframesContainer.style.gridTemplateColumns =
-        "repeat(auto-fit, minmax(500px, 1fr))";
-    }
-  };
+      nextPageButton.addEventListener("click", () => {
+        const totalPages = Math.ceil(referenceList.length / itemsPerPage);
+        if (currentPage < totalPages) {
+          currentPage++;
+          renderPage();
+        }
+      });
 
-  switchButton.addEventListener("click", toggleView);
-</script>
+      switchButton.addEventListener("click", () => {
+        if (
+          iframesContainer.style.gridTemplateColumns ===
+          "repeat(auto-fit, minmax(500px, 1fr))"
+        ) {
+          iframesContainer.style.gridTemplateColumns =
+            "repeat(auto-fit, minmax(calc(100vw / 1), 1fr))";
+        } else {
+          iframesContainer.style.gridTemplateColumns =
+            "repeat(auto-fit, minmax(500px, 1fr))";
+        }
+      });
+
+      renderPage(); // Affiche la première page au chargement de la page
+    </script>
   </body>
 </html>
