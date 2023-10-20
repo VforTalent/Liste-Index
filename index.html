@@ -11,7 +11,6 @@
       }
       .iframe-wrapper {
         position: relative;
-        /*height: 0;*/
         padding-bottom: 56.25%; /* 16:9 aspect ratio */
         overflow: hidden;
       }
@@ -60,22 +59,22 @@
     <h1>ROCOBOT by Vfor Talent</h1>
     <div id="iframes-container"></div>
     <button class="switch-button">Switch</button>
-    <div class="pagination">
-      <button id="prev-page">Page précédente</button>
-      <button id="next-page">Page suivante</button>
-    </div>
+
+    <button id="prevPageButton">Previous Page</button>
+    <button id="nextPageButton">Next Page</button>
+
     <script>
       const iframesContainer = document.getElementById("iframes-container");
       const switchButton = document.querySelector(".switch-button");
-      const prevPageButton = document.getElementById("prev-page");
-      const nextPageButton = document.getElementById("next-page");
+      const prevPageButton = document.getElementById("prevPageButton");
+      const nextPageButton = document.getElementById("nextPageButton");
 
       const referenceList = [
  "https://unireso-studio.com/": ["tag1", "tag2"],
-        "https://additivestudios.co.uk/": ["tag1"],
+        "https://additivestudios.co.uk/": ["tag1", "tag3"],
         "https://www.dkft.fr/",
         "http://www.mecanique-g.com/",
-        "https://www.lightfield.london/": ["tag2"],
+        "https://www.lightfield.london/",
         "https://www.weareink.co.uk/",
         "https://17mars.com/",
         "https://3d-something.com/",
@@ -196,7 +195,7 @@
         "https://www.alreadybeenchewed.tv/",
       ];
 
-      const itemsPerPage = 10;
+       const itemsPerPage = 10;
       let currentPage = 1;
 
       const extractSiteName = (url) => {
@@ -205,55 +204,21 @@
         return siteName;
       };
 
-const createIframeWrapper = (url, tags) => {
-  const trimmedSiteUrl = url.trim();
-  const iframeWrapper = document.createElement("div");
-  iframeWrapper.classList.add("iframe-wrapper");
-
-  // Ajoutez des classes CSS correspondant aux tags
-  if (tags && tags.length > 0) {
-    tags.forEach(tag => {
-      iframeWrapper.classList.add(`tag-${tag}`);
-    });
-  }
-
-  const iframe = document.createElement("iframe");
-  iframe.src = trimmedSiteUrl;
-  iframe.setAttribute("loading", "lazy");
-  iframeWrapper.appendChild(iframe);
-
-  const siteName = extractSiteName(trimmedSiteUrl);
-  const iframeName = document.createElement("div");
-  iframeName.classList.add("iframe-name");
-  iframeName.innerText = siteName;
-  iframeWrapper.appendChild(iframeName);
-  return iframeWrapper;
-};
-
-// Fonction pour filtrer les iframes en fonction des tags sélectionnés
-const filterIframes = (selectedTags) => {
-  const iframeWrappers = document.querySelectorAll(".iframe-wrapper");
-  iframeWrappers.forEach((iframeWrapper) => {
-    const iframeTags = Array.from(iframeWrapper.classList).filter(cls => cls.startsWith("tag-"));
-
-    if (selectedTags.length === 0 || selectedTags.some(tag => iframeTags.includes(`tag-${tag}`))) {
-      iframeWrapper.style.display = "block";
-    } else {
-      iframeWrapper.style.display = "none";
-    }
-  });
-};
-
-// Écoutez les changements dans la sélection des tags
-const tagCheckboxes = document.querySelectorAll(".tag-checkbox");
-tagCheckboxes.forEach((checkbox) => {
-  checkbox.addEventListener("change", () => {
-    const selectedTags = Array.from(tagCheckboxes)
-      .filter(checkbox => checkbox.checked)
-      .map(checkbox => checkbox.value);
-    filterIframes(selectedTags);
-  });
-});
+      const createIframeWrapper = (url) => {
+        const trimmedSiteUrl = url.trim();
+        const iframeWrapper = document.createElement("div");
+        iframeWrapper.classList.add("iframe-wrapper");
+        const iframe = document.createElement("iframe");
+        iframe.src = trimmedSiteUrl;
+        iframe.setAttribute("loading", "lazy");
+        iframeWrapper.appendChild(iframe);
+        const siteName = extractSiteName(trimmedSiteUrl);
+        const iframeName = document.createElement("div");
+        iframeName.classList.add("iframe-name");
+        iframeName.innerText = siteName;
+        iframeWrapper.appendChild(iframeName);
+        return iframeWrapper;
+      };
 
       const updatePageButtons = () => {
         prevPageButton.disabled = currentPage === 1;
@@ -271,8 +236,8 @@ tagCheckboxes.forEach((checkbox) => {
         });
         updatePageButtons();
         
-    // Faites défiler la page vers le haut
-  window.scrollTo(0, 0);
+        // Faites défiler la page vers le haut
+        window.scrollTo(0, 0);
       };
 
       prevPageButton.addEventListener("click", () => {
@@ -293,7 +258,7 @@ tagCheckboxes.forEach((checkbox) => {
       switchButton.addEventListener("click", () => {
         if (
           iframesContainer.style.gridTemplateColumns ===
-          "repeat(auto-fit, minmax(500px, 1fr))"
+          "repeat(auto-fit, minmax(500px, 1fr)"
         ) {
           iframesContainer.style.gridTemplateColumns =
             "repeat(auto-fit, minmax(calc(100vw / 1), 1fr))";
