@@ -11,6 +11,7 @@
       }
       .iframe-wrapper {
         position: relative;
+        /*height: 0;*/
         padding-bottom: 56.25%; /* 16:9 aspect ratio */
         overflow: hidden;
       }
@@ -195,7 +196,7 @@
         "https://www.alreadybeenchewed.tv/",
       ];
 
-       const itemsPerPage = 10;
+    const itemsPerPage = 10;
       let currentPage = 1;
 
       const extractSiteName = (url) => {
@@ -256,15 +257,10 @@
       });
 
       switchButton.addEventListener("click", () => {
-        if (
-          iframesContainer.style.gridTemplateColumns ===
-          "repeat(auto-fit, minmax(500px, 1fr)"
-        ) {
-          iframesContainer.style.gridTemplateColumns =
-            "repeat(auto-fit, minmax(calc(100vw / 1), 1fr))";
+        if (iframesContainer.style.gridTemplateColumns === "repeat(auto-fit, minmax(500px, 1fr)")) {
+          iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(80%, 1fr)";
         } else {
-          iframesContainer.style.gridTemplateColumns =
-            "repeat(auto-fit, minmax(500px, 1fr))";
+          iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(500px, 1fr)";
         }
       });
 
