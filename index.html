@@ -1,76 +1,75 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>ROCOBOT</title>
-    <style>
-      #iframes-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-        gap: 20px;
-      }
-      .iframe-wrapper {
-        position: relative;
-        /*height: 0;*/
-        padding-bottom: 56.25%; /* 16:9 aspect ratio */
-        overflow: hidden;
-      }
-      .iframe-wrapper > iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 80%;
-        height: 80%;
-      }
-      .iframe-wrapper::before {
-        content: attr(data-url);
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        padding: 10px;
-        font-size: 18px;
-        font-weight: bold;
-        color: black;
-        background-color: rgba(255, 255, 255, 0.7);
-        z-index: 1;
-        box-sizing: border-box;
-      }
-      .iframe-name {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        padding: 10px;
-        font-size: 18px;
-        font-weight: bold;
-        color: white;
-        background-color: rgba(0, 0, 0, 0.7);
-        z-index: 2;
-        box-sizing: border-box;
-      }
-      .switch-button {
-        position: fixed;
-        top: 10px;
-        right: 10px;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>ROCOBOT by Vfor Talent</h1>
-    <div id="iframes-container"></div>
-    <button class="switch-button">Switch</button>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ROCOBOT</title>
+  <style>
+    #iframes-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 20px;
+    }
 
-    <button id="prevPageButton">Previous Page</button>
-    <button id="nextPageButton">Next Page</button>
+    .iframe-wrapper {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      overflow: hidden;
+    }
 
-    <script>
-      const iframesContainer = document.getElementById("iframes-container");
-      const switchButton = document.querySelector(".switch-button");
-      const prevPageButton = document.getElementById("prevPageButton");
-      const nextPageButton = document.getElementById("nextPageButton");
+    .iframe-wrapper > iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 80%;
+      height: 80%;
+    }
 
-      const referenceList = [
+    .iframe-wrapper::before,
+    .iframe-name {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      box-sizing: border-box;
+    }
+
+    .iframe-wrapper::before {
+      content: attr(data-url);
+      color: black;
+      background-color: rgba(255, 255, 255, 0.7);
+      z-index: 1;
+    }
+
+    .iframe-name {
+      color: white;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 2;
+    }
+
+    .switch-button {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>ROCOBOT by Vfor Talent</h1>
+  <div id="iframes-container"></div>
+  <button class="switch-button">Switch</button>
+  <button id="prevPageButton">Previous Page</button>
+  <button id="nextPageButton">Next Page</button>
+
+  <script>
+    const iframesContainer = document.getElementById("iframes-container");
+    const switchButton = document.querySelector(".switch-button");
+    const prevPageButton = document.getElementById("prevPageButton");
+    const nextPageButton = document.getElementById("nextPageButton");
+
+    const referenceList = [
  "https://unireso-studio.com/", ["tag1", "tag2"],
         "https://additivestudios.co.uk/"
         "https://www.dkft.fr/",
@@ -194,77 +193,83 @@
         "https://www.clan.team/",
         "https://www.weareseventeen.com/",
         "https://www.alreadybeenchewed.tv/",
-      ];
+         ];
 
     const itemsPerPage = 10;
-      let currentPage = 1;
+    let currentPage = 1;
 
-      const extractSiteName = (url) => {
-        const hostname = new URL(url).hostname;
-        const siteName = hostname.replace("www.", "");
-        return siteName;
-      };
+    const extractSiteName = (url) => {
+      const hostname = new URL(url).hostname;
+      const siteName = hostname.replace("www.", "");
+      return siteName;
+    };
 
-      const createIframeWrapper = (url) => {
-        const trimmedSiteUrl = url.trim();
-        const iframeWrapper = document.createElement("div");
-        iframeWrapper.classList.add("iframe-wrapper");
-        const iframe = document.createElement("iframe");
-        iframe.src = trimmedSiteUrl;
-        iframe.setAttribute("loading", "lazy");
-        iframeWrapper.appendChild(iframe);
-        const siteName = extractSiteName(trimmedSiteUrl);
-        const iframeName = document.createElement("div");
-        iframeName.classList.add("iframe-name");
-        iframeName.innerText = siteName;
-        iframeWrapper.appendChild(iframeName);
-        return iframeWrapper;
-      };
+    const createIframeWrapper = (url) => {
+      const trimmedSiteUrl = url.trim();
+      const iframeWrapper = document.createElement("div");
+      iframeWrapper.classList.add("iframe-wrapper");
+      
+      const iframe = document.createElement("iframe");
+      iframe.src = trimmedSiteUrl;
+      iframe.setAttribute("loading", "lazy");
+      iframeWrapper.appendChild(iframe);
 
-      const updatePageButtons = () => {
-        prevPageButton.disabled = currentPage === 1;
-        nextPageButton.disabled = currentPage === Math.ceil(referenceList.length / itemsPerPage);
-      };
+      const siteName = extractSiteName(trimmedSiteUrl);
+      
+      const iframeName = document.createElement("div");
+      iframeName.classList.add("iframe-name");
+      iframeName.innerText = siteName;
+      iframeWrapper.appendChild(iframeName);
 
-      const renderPage = () => {
-        iframesContainer.innerHTML = "";
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        const pageItems = referenceList.slice(startIndex, endIndex);
-        pageItems.forEach((siteUrl) => {
-          const iframeWrapper = createIframeWrapper(siteUrl);
-          iframesContainer.appendChild(iframeWrapper);
-        });
-        updatePageButtons();
-        
-        // Faites défiler la page vers le haut
-        window.scrollTo(0, 0);
-      };
+      return iframeWrapper;
+    };
 
-      prevPageButton.addEventListener("click", () => {
-        if (currentPage > 1) {
-          currentPage--;
-          renderPage();
-        }
+    const updatePageButtons = () => {
+      prevPageButton.disabled = currentPage === 1;
+      nextPageButton.disabled = currentPage === Math.ceil(referenceList.length / itemsPerPage);
+    };
+
+    const renderPage = () => {
+      iframesContainer.innerHTML = "";
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+      const pageItems = referenceList.slice(startIndex, endIndex);
+
+      pageItems.forEach((siteUrl) => {
+        const iframeWrapper = createIframeWrapper(siteUrl);
+        iframesContainer.appendChild(iframeWrapper);
       });
 
-      nextPageButton.addEventListener("click", () => {
-        const totalPages = Math.ceil(referenceList.length / itemsPerPage);
-        if (currentPage < totalPages) {
-          currentPage++;
-          renderPage();
-        }
-      });
+      updatePageButtons();
 
-      switchButton.addEventListener("click", () => {
-        if (iframesContainer.style.gridTemplateColumns === "repeat(auto-fit, minmax(500px, 1fr)")) {
-          iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(80%, 1fr)";
-        } else {
-          iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(500px, 1fr)";
-        }
-      });
+      // Scroll to the top of the page
+      window.scrollTo(0, 0);
+    };
 
-      renderPage(); // Affiche la première page au chargement de la page
-    </script>
-  </body>
+    prevPageButton.addEventListener("click", () => {
+      if (currentPage > 1) {
+        currentPage--;
+        renderPage();
+      }
+    });
+
+    nextPageButton.addEventListener("click", () => {
+      const totalPages = Math.ceil(referenceList.length / itemsPerPage);
+      if (currentPage < totalPages) {
+        currentPage++;
+        renderPage();
+      }
+    });
+
+    switchButton.addEventListener("click", () => {
+      if (iframesContainer.style.gridTemplateColumns === "repeat(auto-fit, minmax(500px, 1fr)")) {
+        iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(80%, 1fr))";
+      } else {
+        iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(500px, 1fr))";
+      }
+    });
+
+    renderPage(); // Display the first page on page load
+  </script>
+</body>
 </html>
