@@ -20,8 +20,8 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: 80%;
-      height: 80%;
+      width: 100%; /* Updated to 100% to fill the container */
+      height: 100%; /* Updated to 100% to fill the container */
     }
 
     .iframe-wrapper::before,
@@ -70,8 +70,8 @@
     const nextPageButton = document.getElementById("nextPageButton");
 
     const referenceList = [
- "https://unireso-studio.com/", ["tag1", "tag2"],
-        "https://additivestudios.co.uk/"
+ "https://unireso-studio.com/",
+        "https://additivestudios.co.uk/",
         "https://www.dkft.fr/",
         "http://www.mecanique-g.com/",
         "https://www.lightfield.london/",
@@ -193,7 +193,7 @@
         "https://www.clan.team/",
         "https://www.weareseventeen.com/",
         "https://www.alreadybeenchewed.tv/",
-         ];
+ ];
 
     const itemsPerPage = 10;
     let currentPage = 1;
@@ -262,7 +262,7 @@
     });
 
     switchButton.addEventListener("click", () => {
-      if (iframesContainer.style.gridTemplateColumns === "repeat(auto-fit, minmax(500px, 1fr)")) {
+      if (iframesContainer.style.gridTemplateColumns === "repeat(auto-fit, minmax(500px, 1fr)") {
         iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(80%, 1fr))";
       } else {
         iframesContainer.style.gridTemplateColumns = "repeat(auto-fit, minmax(500px, 1fr))";
